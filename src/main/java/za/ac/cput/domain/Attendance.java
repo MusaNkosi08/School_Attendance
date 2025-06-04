@@ -1,66 +1,80 @@
+
 package za.ac.cput.domain;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Locale;
 import java.util.Objects;
 
+@Entity
+@Table(name = "attendance")
 public class Attendance {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "attendance_date", nullable = false)
     private LocalDate date;
+
+    @Column(name = "attendance_time", nullable = false)
     private LocalTime time;
 
-    public Attendance() {
+    protected Attendance() {
+        // Required by JPA
     }
 
-    public Attendance(LocalDate date, LocalTime time) {
-        this.date = date;
-        this.time = time;
+    private Attendance(Builder builder) {
+        this.id = builder.id;
+        this.date = builder.date;
+        this.time = builder.time;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public LocalTime getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
-    }
-    private Attendance(Builder builder){
-        this.date= builder.date;
-        this.time= builder.time;
-
-    }
-
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Attendance that = (Attendance) o;
-        return Objects.equals(date, that.date) && Objects.equals(time, that.time);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(time, that.time);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(date, time);
+        return Objects.hash(id, date, time);
     }
 
     @Override
     public String toString() {
         return "Attendance{" +
-                "date=" + date +
+                "id=" + id +
+                ", date=" + date +
                 ", time=" + time +
                 '}';
     }
 
     public static class Builder {
+        private Long id;
         private LocalDate date;
         private LocalTime time;
+
+        public Builder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder setDate(LocalDate date) {
             this.date = date;
@@ -73,6 +87,7 @@ public class Attendance {
         }
 
         public Builder copy(Attendance attendance) {
+            this.id = attendance.id;
             this.date = attendance.date;
             this.time = attendance.time;
             return this;
