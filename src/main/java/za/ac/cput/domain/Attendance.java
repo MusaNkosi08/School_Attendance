@@ -20,7 +20,7 @@ public class Attendance {
     @Column(name = "attendance_time", nullable = false)
     private LocalTime time;
 
-    protected Attendance() {
+    protected Attendance(LocalDate date, LocalTime time) {
         // Required by JPA
     }
 
@@ -29,6 +29,7 @@ public class Attendance {
         this.date = builder.date;
         this.time = builder.time;
     }
+
 
     public Long getId() {
         return id;
