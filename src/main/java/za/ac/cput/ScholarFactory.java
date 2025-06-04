@@ -1,4 +1,4 @@
-package za.ac.cput.factory;
+package za.ac.cput;
 
 import za.ac.cput.domain.Scholar;
 
@@ -24,10 +24,10 @@ public class ScholarFactory {
     }
 
     private static boolean isValidEmail(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
+        return email.matches(" ");
     }
 
     private static boolean isValidCemisNumber(String cemisNumber) {
-        return cemisNumber.matches("\\d{13}");
+        return cemisNumber.matches(" ");
     }
 }
