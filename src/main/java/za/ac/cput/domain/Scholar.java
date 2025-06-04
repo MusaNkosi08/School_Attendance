@@ -1,14 +1,39 @@
 package za.ac.cput.domain;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+
 import java.sql.Blob;
 import java.util.Objects;
 
+@Entity
+@Table(name = "scholar")
 public class Scholar {
+    @Id
+    @Column(name = "cemis_number", length = 13)
+    @Pattern(regexp = "^[0-9]{13}$", message = "CEMIS number must be 13 digits")
     private String cemisNumber;
+
+    @Column(name = "first_names")
     private String firstNames;
+
+    @Column(name = "last_name")
+    @NotEmpty(message = "Last name required")
     private String lastName;
+
+    @Column(name = "grade")
+    @NotEmpty(message = "Grade required")
     private String grade;
+
+    @Column(name = "email")
+    @Email(message = "Invalid email format")
+    @NotEmpty(message = "Email required")
     private String email;
+
+    @Lob
+    @Column(name = "photo")
     private Blob photo;
 
     public Scholar(String cemisNumber, String firstNames, String lastName, String grade, String email, Blob photo) {
@@ -18,6 +43,10 @@ public class Scholar {
         this.grade = grade;
         this.email = email;
         this.photo = photo;
+    }
+
+    public Scholar() {
+
     }
 
     public String getCemisNumber() {

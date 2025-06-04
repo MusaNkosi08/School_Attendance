@@ -24,10 +24,10 @@ public class ScholarFactory {
     }
 
     private static boolean isValidEmail(String email) {
-        return email.matches(" ");
+        return email.matches("^[A-Za-z0-9+_.-]+@(.+)$");
     }
 
     private static boolean isValidCemisNumber(String cemisNumber) {
-        return cemisNumber.matches(" ");
+        return cemisNumber.matches("^[0-9]{13}$");
     }
 }
